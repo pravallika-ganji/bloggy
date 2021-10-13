@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-dyo01)m4w40)#snqmp-=2h&vuesz-00f3hfo&vw)ilk6og13m*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -102,7 +102,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'blog',
-        'HOST': 'blog0ver.herokuapp.com',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
         'PASSWORD': '19bq1a0551',
