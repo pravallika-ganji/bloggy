@@ -87,17 +87,25 @@ WSGI_APPLICATION = 'tech.wsgi.application'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'blog',
-#         'HOST': '127.0.0.1',
-#         'PORT': '3306',
-#         'USER': 'root',
-#         'PASSWORD': '19bq1a0551',
+#          'OPTIONS': {
+#             'read_default_file': '/etc/mysql/my.cnf',
+#         },
+#     }
+# }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': str(os.path.join(BASE_DIR, "db.sqlite3"))
 #     }
 # }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(os.path.join(BASE_DIR, "db.sqlite3"))
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'blog',
+        'HOST': '',
+        'PORT': '3306',
+        'USER': 'root',
+        'PASSWORD': '19bq1a0551',
     }
 }
 
@@ -161,4 +169,4 @@ LOGIN_REDIRECT_URL = 'home'
 
 LOGOUT_REDIRECT_URL = 'home'
 
-django_heroku.settings(local())
+django_heroku.settings(locals())
