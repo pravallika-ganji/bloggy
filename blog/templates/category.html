@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}All Blogs {% endblock %}
+
+{%block content %}
+<div class="container mt-2 my-4">
+  <h2>{{cats}}</h2><hr>
+  <div class="row">
+    {% for z in category_posts %}
+    <div class="col col-md-3">
+      <div class="card mt-2 text-center shadow-lg">
+          <img src="{{z.image.url}}" height="120px" width="100%" class="card-img-top">
+          <div class="card-body">
+          <h3 class="mt-2">{{z.title}}</h3>
+          <p>author: {{z.user}}</p>
+          <p>{{z.description | slice:"100"}}<p>
+          <a href="{% url 'detail' z.pk %}">Read more</a>
+          {% if user.is_authenticated %}
+          <div class="row mx-2">
+            <a href="{% url 'update' z.pk %}" class="btn btn-outline-warning mx-2">Update</a>
+            <a href="{% url 'delete' z.pk %}" class="btn btn-outline-danger mx-2">Delete</a>
+          </div>
+          {% endif %}
+          </div></div>
+    </div>
+    {% endfor %}
+ </div></div>
+{% endblock %}

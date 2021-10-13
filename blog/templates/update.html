@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Update{% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+<div class="container mt-4">
+{% if messages %}
+{% for m in messages %}
+<div class="alert alert-{{m.tags}} alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{m}}
+</div>
+{% endfor %}
+{% endif %}
+	<div class="card col-md-8 mx-auto shadow-lg">
+		<div class="card-body">
+			
+			
+			<h3>Blog Update</h3><br>
+			<form method="post" enctype="multipart/form-data">
+				
+				{% csrf_token %}
+				{% if user.id == k.user.id %}
+				{{form.media}}
+				{% for t in x %}
+				{{t}}<br>
+				{% endfor %}
+			
+				<div class="row">
+					<div class="col">
+						<a href="{% url 'home' %}" class="btn btn-outline-primary form-control my-2">Back to List</a>
+					</div>
+					<div class="col">
+						<input type="submit" value="Update" class="btn btn-outline-success form-control my-2">
+					</div>
+				</div>
+				{% else %}
+				<h3>Sorry, you can't edit this post!!!!!!</h3>
+				{% endif %}
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

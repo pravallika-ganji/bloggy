@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Edit Profile{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+<style>
+    .errorlist{
+        color: red;
+    }
+</style>
+<div class="container mt-4">
+	<div class="card col-md-10 mx-auto shadow-lg">
+		<div class="card-body">
+			<h3>Edit Profile</h3><br>
+			<form method="post">
+				{% csrf_token %}
+				{{ form | crispy }}
+				{{ form.as_p }}
+				<div class="row">
+					<div class="col">
+						 <input type="reset" value="Reset" class="btn btn-outline-danger my-2 form-control">
+					</div>
+					<div class="col">
+						<input type="submit" value="Update Profile" class="btn btn-outline-success my-2 form-control">
+					</div>
+				</div>
+				<ul>
+					<li>Your password can’t be too similar to your other personal information.</li>
+					<li>Your password must contain at least 8 characters.</li>
+					<li>Your password can’t be a commonly used password.</li>
+					<li>Your password can’t be entirely numeric.</li>
+				</ul>
+			</form>
+			
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}Detail{% endblock %}
+{% block content %}
+{% load static %}
+<div class="container">
+    <div class="col mt-3 mx-2 my-3">
+        <h2>{{post.title}}</h2><br>
+        <div class="row">
+            <div class="col-8">
+                <p>{{post.description|safe}}<p>
+            </div>
+            <div class="col-4">
+                <img src="{{post.image.url}}" height="250" width="250"><br>
+            </div>
+        </div>
+        <form action="{% url 'like' post.pk %}" method="POST">
+            {% csrf_token %}
+            <span id="likes">{{total_likes}} </span> likes&nbsp;
+            {%  if liked %}
+            <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger">Unlike</button>
+            {% else %}
+            <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary">Like</button>
+            {% endif %}
+        </form>
+        <br>
+        Category : <a href="{% url 'category' post.category|slugify %}">{{post.category}}</a><br>
+        created at : {{post.created_at}} by {{post.user}}<br>
+        updated at : {{post.updated_at}}<br><br>
+        <h3>Comments...</h3><br>
+        <a href="{% url 'comment' post.pk %}">Add Comment</a><br><br>
+        {% if not post.comments.all %}
+            No Comments Yet.....
+        {% else %}
+        {% for i in post.comments.all %}
+        
+        <p>
+            {{i.comment}}<br>
+            at {{i.commented_at}} by {{i.name}}<br>
+        </p>
+        <hr>
+        {% endfor %}
+        {% endif %}
+        
+        <br><br>
+        <a href="{% url 'home' %}" class="btn btn-outline-secondary">Back</a><br><br>
+        <div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-2">
+    {% if post.user.profile.propic %}
+      <img src="{{post.user.profile.propic.url}}" class="card-img" alt="propic">
+    {% else %}
+       <img src="{% static 'images/blogimages/profile/user.png' %}" class="card-img" alt="propic" width="130px" height="230px">
+    {% endif %}
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">
+            {{post.user}}
+        </h5>
+        <p class="small text-muted">
+            <a href="{% url 'profile' post.user.profile.id %}">User Profile</a>
+            {% if post.user.profile.website_url %}
+             | <a href="{{post.user.profile.website_url}}">Website</a>
+            {% endif %}
+            {% if post.user.profile.fb_url %}
+             | <a href="{{post.user.profile.fb_url}}">Facebook</a>
+            {% endif %}
+            {% if post.user.profile.instagram_url %}
+             | <a href="{{post.user.profile.instagram_url}}">Instagram</a>
+            {% endif %}
+            {% if post.user.profile.linkedin_url %}
+             | <a href="{{post.user.profile.linkedin_url}}">LikedIn</a>
+            {% endif %}
+        </p>
+        <p class="card-text">
+            {{post.user.profile.bio}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+</div>
+{% endblock %}
